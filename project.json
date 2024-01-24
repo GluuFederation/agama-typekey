@@ -1,0 +1,44 @@
+{
+    "projectName": "agama-typekey",
+    "description": "Implements behavioral authentication using keystroke data",
+    "type": "community",
+    "author": "SafinWasi",
+    "version": "0.0.1",
+    "authorWebsite": "https://github.com/GluuFederation/agama-typekey",
+    "githubUri": "https://github.com/GluuFederation/agama-typekey",
+    "license": "apache-2.0",
+    "lastUpdated": "1704730175403",
+    "tags": [
+        "authentication"
+    ],
+    "noDirectLaunch": [],
+    "configs": {
+        "org.gluu.agama.typekey": {
+            "keystoreName": "",
+            "keystorePassword": "",
+            "orgId": "",
+            "clientId": "",
+            "clientSecret": "",
+            "authHost": "https://account.gluu.org",
+            "scanHost": "https://cloud.gluu.org",
+            "phrases": {
+                "1": "Lorem Ipsum",
+                "2": "Dolor Si Amet"
+            }
+        },
+        "": {
+            "keystoreName": "",
+            "keystorePassword": "",
+            "orgId": "",
+            "clientId": "",
+            "clientSecret": "",
+            "authHost": "https://account.gluu.org",
+            "scanHost": "https://cloud.gluu.org",
+            "phrases": {
+                "1": "Lorem Ipsum",
+                "2": "Dolor Si Amet"
+            }
+        }
+    },
+    "name": "agama-typekey"
+}
