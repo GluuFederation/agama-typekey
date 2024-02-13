@@ -6,8 +6,8 @@ tk = Call org.gluu.agama.typekey.Typekey#new conf
 user = RRF "typekey/username.ftlh" 
 userData = Call idp accountFromUsername user.username
 When userData.empty is true
-     it_orwks = {success:false, error: "User not found"}
-     Finish it_orwks
+     it_kjmim = {success:false, error: "User not found"}
+     Finish it_kjmim
 enrolled = Call idp enrolled user.username
 When enrolled is false
      random_usecase = Call tk getRandomUseCase 
@@ -27,9 +27,9 @@ When typekey_result.status is "Enrollment"
      authenticated = Call idp authenticate user.username password.pwd
      When authenticated is true
           Call tk notifyKeystrokes user.username typekey_result.track_id
-          it_jqepp = undefined
-          Finish it_jqepp
-     it_fmlpt = {success:false, error: "Authentication failed"}
-     Finish it_fmlpt
-it_xytnt = undefined
-Finish it_xytnt
+          it_doecp = {success:true, data: { userId: user.username}}
+          Finish it_doecp
+     it_gklkx = {success:false, error: "Authentication failed"}
+     Finish it_gklkx
+it_himhi = undefined
+Finish it_himhi
