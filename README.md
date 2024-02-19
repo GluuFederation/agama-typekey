@@ -16,23 +16,37 @@ The project contains one flow: `org.gluu.agama.typekey`. When this is launched, 
 ### Requirements
 
 1. A running instance of Jans Auth Server
-2. A new column in `jansdb.jansPerson` to store the phrase metadata in
-3. A SCAN subscription. Please visit [https://gluu.org/agama-lab] and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 25 credits.
+1. A new column in `jansdb.jansPerson` to store the phrase metadata in
+1. A SCAN subscription. Please visit [https://gluu.org/agama-lab] and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 25 credits.
 
-### Add Java dependencies
+### Add column to database
 
+These instructions are for MySQL. Please follow the [documentation](https://docs.jans.io/v1.0.22/admin/reference/database/) for your persistence type.
 
-4. Restart Auth Server to load the new jar:
+1. Log into the server running Jans
+2. Log into MySQL with a user that has permission to operate on `jansdb`
+3. Add the column:
 
-```
-systemctl restart jans-auth
-````
+  ```sql
+  ALTER TABLE jansdb.jansPerson ADD COLUMN typekeyData JSON NULL;
+  ```
+
+4. Restart MySQL and Auth Server to load the changes:
+
+  ```
+  systemctl restart mysql jans-auth
+  ````
+
+### Dynamic Client Registration
+
+In order to call the Typekey API, you will need an OAuth client. Once you have a SCAN subscription on Agama Lab, navigate to `Market` > `SCAN` and create an SSA with the software claim `typekey` and an appropriate lifetime. Your client will expire after that time. Once this is done, note down the base64 encoded string, and send a dynamic client registration request to `https://account.gluu.org/jans-auth/restv1/register` to obtain a client ID and secret. You will need this to configure the Typekey flow. Jans Tarp has functionality to automate the registration process.
+
+- [Dynamic Client Registration specification](https://www.rfc-editor.org/rfc/rfc7591#section-3.1)
+- [Jans Tarp](https://github.com/JanssenProject/jans/tree/main/demos/jans-tarp)
 
 ### Deployment
 
-Download the
-latest [agama-passkey.gama](https://github.com/GluuFederation/agama-typekey/releases/latest/download/agama-typekey.gama)
-file and deploy it in Auth Sever.
+Download the latest [agama-typekey.gama](https://github.com/GluuFederation/agama-typekey/releases/latest/download/agama-typekey.gama) file and deploy it in Auth Sever.
 
 Follow the steps below:
 
@@ -43,26 +57,33 @@ Follow the steps below:
 - Press `d` and ensure there were not deployment errors
 - Pres `ESC` to close the dialog
 
-![TUI_AGAMA_DEPLOY]()
+### Configure Typekey 
 
-### Configure Jans Scim
-
-- We open TUI and we are located in agama, we select in the table where our application is deployed and press `c`, this will open a configuration panel, where we must first hit `Export Sample Config` and save the file in some path.
-- Now we go to the exported file and edit it and enter the credentials
+- Open TUI and navigate to `Agama`
+- Select the deployed project and hit `c`
+- Select `Export sample configuration` and select a directory and a filename
+- Open the file in an editor
 
 ```
 {
     "org.gluu.agama.typekey": {
-      "keystoreName": "", // name of keystore file
-      "keystorePassword": "", // password of keystore file
-      "orgId": "", // org_id of the SCAN account to use
-      "clientId": "", // Client ID obtained from DCR
-      "clientSecret": "", // Client secret obtained from DCR
-      "authHost": "https://account.gluu.org", // Authorization server
-      "scanHost": "https://cloud.gluu.org" // SCAN host
+      "keystoreName": "",
+      "keystorePassword": "", 
+      "orgId": "", 
+      "clientId": "",
+      "clientSecret": "",
+      "authHost": "https://account.gluu.org",
+      "scanHost": "https://cloud.gluu.org"
     }
 }
 ```
+
+### Configuration details
+
+- `keystoreName` and `keystorePassword` are optional, in case you want to include a signature when sending the Typekey data. Leave them as blank otherwise.
+- `orgId` is the organization ID that can be obtained by decoding the software statement JWT and looking at the `org_id` claim (You may use `https://jwt.io` to decode the SSA).
+- `clientId` and `clientSecret` are the client credentials obtained from Dynamic Client Registration
+- `authHost` and `scanHost` can be left as is
 
 - We go back to the TUI and click on `Import Configuration` and select the modified configuration file with our parameters.
 - With this, our `agama project` is now configured and we can start testing.
@@ -71,8 +92,11 @@ Follow the steps below:
 
 You'll need an OpenID Connect test RP. You can try [oidcdebugger](https://oidcdebugger.com/),
 [jans-tarp](https://github.com/JanssenProject/jans/tree/main/demos/jans-tarp)
-or [jans-tent](https://github.com/JanssenProject/jans/tree/main/demos/jans-tent). Check out this video to see an example
-of **agama-typekey** in action:
+or [jans-tent](https://github.com/JanssenProject/jans/tree/main/demos/jans-tent).
+
+Launch an authorization flow with parameters `acr_values=agama&agama_flow=org.gluu.agama.typekey` with your chosen RP.
+
+Check out this video to see an example of **agama-typekey** in action:
 
 # Contributors
 
