@@ -7,9 +7,11 @@
 [![Issues][issues-shield]][issues-url]
 [![Apache License][license-shield]][license-url]
 
-
+This project allows you to record behavioral keystroke data and use it as a second factor of authentication by leveraging the Typekey API. 
 
 ## How it works at a glance
+
+The project contains one flow: `org.gluu.agama.typekey`. When this is launched, the user is first asked for the username. If the user exists and has not been enrolled, a random phrase is chosen from the list of configured phrases and stored in persistence. Then the user is asked to type the phrase, and the website records keystroke data for that phrase. This data is sent to the Typekey API to enroll the user and used as the first factor. If the user is being enrolled or Typekey API denies authentication, password is used as the second factor.
 
 ### Requirements
 
