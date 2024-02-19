@@ -106,7 +106,7 @@ Check out this video to see an example of **agama-typekey** in action:
         <a href=https://github.com/SafinWasi>
             <img src=https://avatars.githubusercontent.com/u/6601566?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=SafinWasi/>
             <br />
-            <sub style="font-size:14px"><b>Milton Ch.</b></sub>
+            <sub style="font-size:14px"><b>SafinWasi</b></sub>
         </a>
     </td>
 </tr>
@@ -137,28 +137,3 @@ This project is licensed under the [Apache 2.0](https://github.com/GluuFederatio
 [license-shield]: https://img.shields.io/github/license/GluuFederation/agama-typekey.svg?style=for-the-badge
 
 [license-url]: https://github.com/GluuFederation/agama-typekey/blob/main/LICENSE
-
-
-
-
-# agama-typekey
-An Agama flow designed to authenticate against the Typekey API to test behavioral metrics
-
-## Setup
-
-Modify the configuration with the following values:
-
-```json
-...
-  "configs": {
-    "io.jans.typekey": {
-      "keystoreName": "", // name of keystore file
-      "keystorePassword": "", // password of keystore file
-      "orgId": "", // org_id of the SCAN account to use
-      "clientId": "", // Client ID obtained from DCR
-      "clientSecret": "", // Client secret obtained from DCR
-      "authHost": "https://account-dev.gluu.cloud", // Authorization server
-      "scanHost": "https://cloud-dev.gluu.cloud" // SCAN host
-    }
-  }
-```
