@@ -15,7 +15,9 @@ The project contains one flow: `org.gluu.agama.typekey`. When this is launched, 
 
 ### Requirements
 
-
+1. A running instance of Jans Auth Server
+2. A new column in `jansdb.jansPerson` to store the phrase metadata in
+3. A SCAN subscription. Please visit [https://gluu.org/agama-lab] and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 25 credits.
 
 ### Add Java dependencies
 
@@ -88,29 +90,29 @@ of **agama-typekey** in action:
 
 # License
 
-This project is licensed under the [Apache 2.0](https://github.com/GluuFederation/agama-security-key/blob/main/LICENSE)
+This project is licensed under the [Apache 2.0](https://github.com/GluuFederation/agama-typekey/blob/main/LICENSE)
 
 <!-- This are stats url reference for this repository -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/GluuFederation/agama-passkey.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/GluuFederation/agama-typekey.svg?style=for-the-badge
 
-[contributors-url]: https://github.com/GluuFederation/agama-passkey/graphs/contributors
+[contributors-url]: https://github.com/GluuFederation/agama-typekey/graphs/contributors
 
-[forks-shield]: https://img.shields.io/github/forks/GluuFederation/agama-passkey.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/GluuFederation/agama-typekey.svg?style=for-the-badge
 
-[forks-url]: https://github.com/GluuFederation/agama-passkey/network/members
+[forks-url]: https://github.com/GluuFederation/agama-typekey/network/members
 
-[stars-shield]: https://img.shields.io/github/stars/GluuFederation/agama-passkey?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/GluuFederation/agama-typekey?style=for-the-badge
 
-[stars-url]: https://github.com/GluuFederation/agama-passkey/stargazers
+[stars-url]: https://github.com/GluuFederation/agama-typekey/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/GluuFederation/agama-passkey.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/GluuFederation/agama-typekey.svg?style=for-the-badge
 
-[issues-url]: https://github.com/GluuFederation/agama-passkey/issues
+[issues-url]: https://github.com/GluuFederation/agama-typekey/issues
 
-[license-shield]: https://img.shields.io/github/license/GluuFederation/agama-passkey.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/GluuFederation/agama-typekey.svg?style=for-the-badge
 
-[license-url]: https://github.com/GluuFederation/agama-passkey/blob/main/LICENSE
+[license-url]: https://github.com/GluuFederation/agama-typekey/blob/main/LICENSE
 
 
 
