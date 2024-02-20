@@ -3,6 +3,99 @@
 		{
 			"width": 170,
 			"height": 123,
+			"id": "finish-3c683d75-5c34-4530-89df-9faaf0036489",
+			"position": {
+				"x": 3078.9811445584705,
+				"y": -240.77120184573556
+			},
+			"type": "finish",
+			"data": {
+				"id": "finish-3c683d75-5c34-4530-89df-9faaf0036489",
+				"type": "Agama-finish-Flow",
+				"parentId": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da",
+				"whenCondition": "WhenTrue",
+				"inRepeatBlock": false,
+				"inIterateBlock": false,
+				"handles": [
+					"Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da.FAILURE",
+					"Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da.SUCCESS"
+				],
+				"position": {
+					"x": 3078.9811445584705,
+					"y": -240.77120184573556
+				},
+				"agamaData": {
+					"id": "finish-3c683d75-5c34-4530-89df-9faaf0036489",
+					"parentId": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da",
+					"type": "Agama-finish-Flow",
+					"hasSuccess": false,
+					"hasFailure": false,
+					"hasComment": true,
+					"comment": "",
+					"flowfilename": "",
+					"returnVariable": "{ userId: user.username }",
+					"nodeIcon": "material-symbols:line-end-square-rounded",
+					"displayName": "Typekey approved"
+				}
+			},
+			"selected": true,
+			"dragging": false,
+			"positionAbsolute": {
+				"x": 3078.9811445584705,
+				"y": -240.77120184573556
+			}
+		},
+		{
+			"width": 210,
+			"height": 140,
+			"id": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da",
+			"position": {
+				"x": 2965.9811445584705,
+				"y": -470.77120184573556
+			},
+			"parentId": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
+			"type": "when",
+			"data": {
+				"id": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da",
+				"type": "Agama-when-Node",
+				"parentId": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
+				"whenCondition": "WhenFalse",
+				"inRepeatBlock": false,
+				"inIterateBlock": false,
+				"position": {
+					"x": 2965.9811445584705,
+					"y": -470.77120184573556
+				},
+				"agamaData": {
+					"id": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da",
+					"parentId": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
+					"type": "Agama-when-Node",
+					"conditions": [
+						{
+							"variable": "typekey_result.status",
+							"operator": "is",
+							"dataValue": "\"Approved\"",
+							"combinator": "none"
+						}
+					],
+					"hasComment": true,
+					"inRepeatBlock": false
+				},
+				"handles": [
+					"Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da.FAILURE",
+					"Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da.SUCCESS"
+				]
+			},
+			"selected": false,
+			"positionAbsolute": {
+				"x": 2965.9811445584705,
+				"y": -470.77120184573556
+			},
+			"dragging": false
+		},
+		{
+			"width": 170,
+			"height": 123,
 			"id": "finish-16ce51f2-3083-4aa6-8b08-fa07efd7ede4",
 			"position": {
 				"x": 3576.7353459243327,
@@ -42,51 +135,6 @@
 			"positionAbsolute": {
 				"x": 3576.7353459243327,
 				"y": 313.7754225937342
-			}
-		},
-		{
-			"width": 170,
-			"height": 123,
-			"id": "finish-b284b72d-35e3-4736-ae24-46871f3ea706",
-			"position": {
-				"x": 3010.5745771838574,
-				"y": -253.37966319081931
-			},
-			"type": "finish",
-			"data": {
-				"id": "finish-b284b72d-35e3-4736-ae24-46871f3ea706",
-				"type": "Agama-finish-Flow",
-				"parentId": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
-				"whenCondition": "WhenFalse",
-				"inRepeatBlock": false,
-				"inIterateBlock": false,
-				"handles": [
-					"Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f.FAILURE",
-					"Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f.SUCCESS"
-				],
-				"position": {
-					"x": 3010.5745771838574,
-					"y": -253.37966319081931
-				},
-				"agamaData": {
-					"id": "finish-b284b72d-35e3-4736-ae24-46871f3ea706",
-					"parentId": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
-					"type": "Agama-finish-Flow",
-					"hasSuccess": false,
-					"hasFailure": false,
-					"hasComment": true,
-					"comment": "",
-					"flowfilename": "",
-					"returnVariable": "{userId:user.username}",
-					"nodeIcon": "material-symbols:line-end-square-rounded"
-				},
-				"skake": false
-			},
-			"selected": false,
-			"dragging": false,
-			"positionAbsolute": {
-				"x": 3010.5745771838574,
-				"y": -253.37966319081931
 			}
 		},
 		{
@@ -343,8 +391,8 @@
 			"height": 140,
 			"id": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
 			"position": {
-				"x": 2749.4194913993038,
-				"y": -200.22457740626575
+				"x": 2743.3397919736976,
+				"y": -198.70465254986425
 			},
 			"parentId": "Agama-call-Node-92a19907-664a-4c4a-9fd2-89294195cdb2",
 			"type": "when",
@@ -356,8 +404,8 @@
 				"inRepeatBlock": false,
 				"inIterateBlock": false,
 				"position": {
-					"x": 2749.4194913993038,
-					"y": -200.22457740626575
+					"x": 2743.3397919736976,
+					"y": -198.70465254986425
 				},
 				"agamaData": {
 					"id": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
@@ -372,7 +420,11 @@
 						}
 					],
 					"hasComment": true,
-					"inRepeatBlock": false
+					"inRepeatBlock": false,
+					"hasSuccess": "",
+					"hasFailure": "",
+					"hasNoRepeat": false,
+					"hasRepeat": false
 				},
 				"handles": [
 					"Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f.FAILURE",
@@ -383,8 +435,8 @@
 			"selected": false,
 			"dragging": false,
 			"positionAbsolute": {
-				"x": 2749.4194913993038,
-				"y": -200.22457740626575
+				"x": 2743.3397919736976,
+				"y": -198.70465254986425
 			}
 		},
 		{
@@ -681,7 +733,7 @@
 				],
 				"skake": false
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false,
 			"positionAbsolute": {
 				"x": 1896.7353459243327,
@@ -1784,24 +1836,6 @@
 			"sourceHandle": "Agama-when-Node-6758a8e5-1fef-4dd0-9cbe-cfe320bceb80.FAILURE"
 		},
 		{
-			"id": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f-finish-b284b72d-35e3-4736-ae24-46871f3ea706-78ccaa62-758e-4e6c-a872-83678c201e90",
-			"type": "straight",
-			"source": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
-			"target": "finish-b284b72d-35e3-4736-ae24-46871f3ea706",
-			"label": "",
-			"labelBgPadding": [
-				8,
-				4
-			],
-			"labelBgBorderRadius": 4,
-			"labelBgStyle": {
-				"fill": "#FFCC00",
-				"color": "#fff",
-				"fillOpacity": 0.7
-			},
-			"sourceHandle": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f.FAILURE"
-		},
-		{
 			"id": "Agama-call-Node-9f684ae7-8e70-40da-a515-2f6117ab0a32-finish-16ce51f2-3083-4aa6-8b08-fa07efd7ede4-a98ca210-aae0-4e37-a8d6-5596cb2ec1ce",
 			"type": "straight",
 			"source": "Agama-call-Node-9f684ae7-8e70-40da-a515-2f6117ab0a32",
@@ -1817,11 +1851,47 @@
 				"color": "#fff",
 				"fillOpacity": 0.7
 			}
+		},
+		{
+			"id": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f-Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da-bc990c9d-16fa-4306-ae1f-1d6817a54ed7",
+			"type": "straight",
+			"source": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f",
+			"target": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da",
+			"label": "",
+			"labelBgPadding": [
+				8,
+				4
+			],
+			"labelBgBorderRadius": 4,
+			"labelBgStyle": {
+				"fill": "#FFCC00",
+				"color": "#fff",
+				"fillOpacity": 0.7
+			},
+			"sourceHandle": "Agama-when-Node-0faee012-adb3-440e-8dc6-4ed23d42c41f.FAILURE"
+		},
+		{
+			"id": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da-finish-3c683d75-5c34-4530-89df-9faaf0036489-9ecbd3a2-8aae-4eba-a4dc-d62bb0a48c05",
+			"type": "straight",
+			"source": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da",
+			"target": "finish-3c683d75-5c34-4530-89df-9faaf0036489",
+			"label": "Condition met",
+			"labelBgPadding": [
+				8,
+				4
+			],
+			"labelBgBorderRadius": 4,
+			"labelBgStyle": {
+				"fill": "#FFCC00",
+				"color": "#fff",
+				"fillOpacity": 0.7
+			},
+			"sourceHandle": "Agama-when-Node-c2f2712d-e929-4dc7-aa73-fb02be7fc6da.SUCCESS"
 		}
 	],
 	"viewport": {
-		"x": -752.0824113702072,
-		"y": 261.35004113737386,
-		"zoom": 0.5
+		"x": -1668.4406145777793,
+		"y": 410.9547777739752,
+		"zoom": 0.6579272625145041
 	}
 }
