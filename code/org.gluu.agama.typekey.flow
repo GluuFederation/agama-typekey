@@ -6,8 +6,8 @@ tk = Call org.gluu.agama.typekey.Typekey#new conf
 user = RRF "typekey/username.ftlh" 
 userData = Call idp accountFromUsername user.username
 When userData.empty is true
-     it_kjbgb = {success:false, error: "User not found"}
-     Finish it_kjbgb
+     it_ynepb = {success:false, error: "User not found"}
+     Finish it_ynepb
 enrolled = Call idp enrolled user.username
 When enrolled is false
      random_usecase = Call tk getRandomUseCase 
@@ -27,18 +27,18 @@ When typekey_result.status is "Enrollment"
      authenticated = Call idp authenticate user.username password.pwd
      When authenticated is true
           Call tk notifyKeystrokes user.username typekey_result.track_id
-          it_ktkez = {success:true, data: { userId: user.username}}
-          Finish it_ktkez
-     it_gnwjs = {success:false, error: "Authentication failed"}
-     Finish it_gnwjs
+          it_xdxpq = {success:true, data: { userId: user.username}}
+          Finish it_xdxpq
+     it_jtbhf = {success:false, error: "Authentication failed"}
+     Finish it_jtbhf
 When typekey_result.status is "Approved"
-     it_khhkx = {success:true, data: { userId: user.username}}
-     Finish it_khhkx
+     it_phoae = {success:true, data: { userId: user.username}}
+     Finish it_phoae
 password = RRF "typekey/password.ftlh" 
 authenticated = Call idp authenticate user.username password.pwd
 When authenticated is true
      Call tk notifyKeystrokes user.username typekey_result.track_id
-     it_vdari = {success:true, data: { userId: user.username}}
-     Finish it_vdari
-it_fwhor = {success:false, error: "Password and typekey failed"}
-Finish it_fwhor
+     it_ndauk = {success:true, data: { userId: user.username}}
+     Finish it_ndauk
+it_jatcp = {success:false, error: "Password and typekey failed"}
+Finish it_jatcp
