@@ -1,13 +1,14 @@
 Flow org.gluu.agama.typekey
      Basepath ""
+     Configs conf
 Log "@info " Starting typekey authentication
 idp = Call org.gluu.agama.typekey.IdentityProcessor#new 
 tk = Call org.gluu.agama.typekey.Typekey#new conf
 user = RRF "typekey/username.ftlh" 
 userData = Call idp accountFromUsername user.username
 When userData.empty is true
-     it_aixno = {success:false, error: "User not found"}
-     Finish it_aixno
+     it_wxvhn = {success:false, error: "User not found"}
+     Finish it_wxvhn
 enrolled = Call idp enrolled user.username
 When enrolled is false
      random_usecase = Call tk getRandomUseCase 
@@ -27,18 +28,18 @@ When typekey_result.status is "Enrollment"
      authenticated = Call idp authenticate user.username password.pwd
      When authenticated is true
           Call tk notifyKeystrokes user.username typekey_result.track_id
-          it_ouffo = {success:true, data: { userId: user.username}}
-          Finish it_ouffo
-     it_wqexb = {success:false, error: "Authentication failed"}
-     Finish it_wqexb
+          it_jnjqh = {success:true, data: { userId: user.username}}
+          Finish it_jnjqh
+     it_ywtwp = {success:false, error: "Authentication failed"}
+     Finish it_ywtwp
 When typekey_result.status is "Approved"
-     it_vgryb = {success:true, data: { userId: user.username}}
-     Finish it_vgryb
+     it_aisfp = {success:true, data: { userId: user.username}}
+     Finish it_aisfp
 password = RRF "typekey/password.ftlh" 
 authenticated = Call idp authenticate user.username password.pwd
 When authenticated is true
      Call tk notifyKeystrokes user.username typekey_result.track_id
-     it_txptw = {success:true, data: { userId: user.username}}
-     Finish it_txptw
-it_zqjxb = {success:false, error: "Password and typekey failed"}
-Finish it_zqjxb
+     it_xwyyw = {success:true, data: { userId: user.username}}
+     Finish it_xwyyw
+it_szlqs = {success:false, error: "Password and typekey failed"}
+Finish it_szlqs

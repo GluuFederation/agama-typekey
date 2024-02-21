@@ -13,7 +13,7 @@
     ],
     "noDirectLaunch": [],
     "configs": {
-        "": {
+        "org.gluu.agama.typekey": {
             "keystoreName": "",
             "keystorePassword": "",
             "orgId": "",
@@ -25,8 +25,7 @@
                 "1": "Lorem Ipsum",
                 "2": "Dolor Si Amet"
             }
-        },
-        "org.gluu.agama.typekey": {}
+        }
     },
     "name": "agama-typekey"
 }
