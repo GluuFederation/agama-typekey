@@ -1555,8 +1555,8 @@
 			"height": 123,
 			"id": "Agama-call-Node-55aa41cb-8923-408e-94a2-34ba1eb37035",
 			"position": {
-				"x": 260,
-				"y": 31
+				"x": 280,
+				"y": 30
 			},
 			"type": "call",
 			"data": {
@@ -1566,8 +1566,8 @@
 				"whenCondition": "",
 				"inRepeatBlock": false,
 				"position": {
-					"x": 260,
-					"y": 31
+					"x": 280,
+					"y": 30
 				},
 				"agamaData": {
 					"id": "Agama-call-Node-55aa41cb-8923-408e-94a2-34ba1eb37035",
@@ -1589,11 +1589,11 @@
 				},
 				"skake": false
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false,
 			"positionAbsolute": {
-				"x": 260,
-				"y": 31
+				"x": 280,
+				"y": 30
 			}
 		},
 		{
@@ -2237,15 +2237,15 @@
 			"sourceHandle": "Agama-when-Node-06dd00af-3f72-4101-a947-cbe0f662bf27.FAILURE"
 		},
 		{
-			"id": "Agama-start-Flow-a59d8f2d-faed-4326-9c37-1534d16b3c97-Agama-call-Node-55aa41cb-8923-408e-94a2-34ba1eb37035-b6036197-ac15-47b1-a390-eecfddf8954f",
+			"id": "Agama-start-Flow-a59d8f2d-faed-4326-9c37-1534d16b3c97-Agama-call-Node-55aa41cb-8923-408e-94a2-34ba1eb37035-49dec6c3-d6ea-49cb-a0be-4d03e5cdbee3",
 			"type": "straight",
 			"source": "Agama-start-Flow-a59d8f2d-faed-4326-9c37-1534d16b3c97",
 			"target": "Agama-call-Node-55aa41cb-8923-408e-94a2-34ba1eb37035"
 		}
 	],
 	"viewport": {
-		"x": 75,
-		"y": 150,
+		"x": 22,
+		"y": 147,
 		"zoom": 1
 	}
 }
