@@ -3,7 +3,7 @@
     "description": "Implements behavioral authentication using keystroke data",
     "type": "community",
     "author": "SafinWasi",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "authorWebsite": "https://github.com/GluuFederation/agama-typekey",
     "githubUri": "https://github.com/GluuFederation/agama-typekey",
     "license": "apache-2.0",
