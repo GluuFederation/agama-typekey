@@ -37,9 +37,10 @@
 					"finishMode": "withFailure",
 					"nodeIcon": "material-symbols:line-end-square-rounded",
 					"displayName": "Password and typekey failed"
-				}
+				},
+				"skake": false
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false,
 			"positionAbsolute": {
 				"x": 3907.0191156813116,
@@ -80,7 +81,8 @@
 					"finishMode": "withSuccess",
 					"nodeIcon": "material-symbols:line-end-square-rounded",
 					"displayName": "Failed Typekey, passed password"
-				}
+				},
+				"skake": false
 			},
 			"selected": false,
 			"dragging": false,
@@ -129,7 +131,8 @@
 						"typekey_result.track_id"
 					],
 					"nodeIcon": "material-symbols:code"
-				}
+				},
+				"skake": false
 			},
 			"selected": false,
 			"dragging": false,
@@ -177,7 +180,8 @@
 				"handles": [
 					"Agama-when-Node-06dd00af-3f72-4101-a947-cbe0f662bf27.FAILURE",
 					"Agama-when-Node-06dd00af-3f72-4101-a947-cbe0f662bf27.SUCCESS"
-				]
+				],
+				"skake": false
 			},
 			"selected": false,
 			"positionAbsolute": {
@@ -227,7 +231,8 @@
 					],
 					"nodeIcon": "material-symbols:code",
 					"asssignedVariableName": "authenticated"
-				}
+				},
+				"skake": false
 			},
 			"selected": false,
 			"positionAbsolute": {
@@ -270,7 +275,8 @@
 					"nodeIcon": "ph:globe-simple",
 					"templatePath": "typekey/password.ftlh",
 					"asssignedVariableName": "password"
-				}
+				},
+				"skake": false
 			},
 			"selected": false,
 			"positionAbsolute": {
@@ -1657,11 +1663,11 @@
 					"comment": "",
 					"isTopLevelFlow": true,
 					"basepath": "",
-					"configParams": "{}",
+					"configParams": "{\n  \"keystoreName\": \"\",\n  \"keystorePassword\": \"\",\n  \"orgId\": \"\",\n  \"clientId\": \"\",\n  \"clientSecret\": \"\",\n  \"authHost\": \"https://account.gluu.org\",\n  \"scanHost\": \"https://cloud.gluu.org\",\n  \"phrases\": {\n   \"1\": \"Lorem Ipsum\",\n   \"2\": \"Dolor Si Amet\"\n  }\n}",
 					"nodeIcon": "material-symbols:line-start-square",
 					"timeout": "",
 					"inputs": "",
-					"configs": "",
+					"configs": "conf",
 					"hasSuccess": "",
 					"hasFailure": "",
 					"hasNoRepeat": false,
@@ -1674,7 +1680,7 @@
 				"x": 30,
 				"y": 30
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false,
 			"positionAbsolute": {
 				"x": 30,
@@ -2277,8 +2283,8 @@
 		}
 	],
 	"viewport": {
-		"x": -2157.4406145777793,
-		"y": 429.9547777739752,
-		"zoom": 0.6579272625145041
+		"x": 10,
+		"y": 15,
+		"zoom": 1
 	}
 }
