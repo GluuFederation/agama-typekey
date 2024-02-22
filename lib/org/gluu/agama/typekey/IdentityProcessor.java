@@ -19,17 +19,12 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 public class IdentityProcessor implements IdentityProcessorInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(IdentityProcessor.class);
 
     private static final String INUM_ATTR = "inum";
-    private static final String EXT_ATTR = "jansExtUid";
-    private static final String EXT_UID_PREFIX = "github:";
-
     private static final String UID = "uid";
     private static final String MAIL = "mail";
     private static final String CN = "cn";
@@ -75,7 +70,7 @@ public class IdentityProcessor implements IdentityProcessorInterface {
         User user = getUser(UID, username);
         logger.info("Adding Typekey claims to UID {}", username);
         UserService userService = CdiUtil.bean(UserService.class);
-        userService.addUserAttribute(user, "typekeyData", typekeyAttributes, false);
+        user.getCustomAttributes().add(new CustomObjectAttribute("typekeyData", typekeyAttributes));
         userService.updateUser(user);
     }
 
