@@ -1,14 +1,13 @@
 Flow org.gluu.agama.typekey
      Basepath ""
      Configs conf
-Log "@info " Starting typekey authentication
 idp = Call org.gluu.agama.typekey.IdentityProcessor#new 
 tk = Call org.gluu.agama.typekey.Typekey#new conf
 user = RRF "typekey/username.ftlh" 
 userData = Call idp accountFromUsername user.username
 When userData.empty is true
-     it_wxvhn = {success:false, error: "User not found"}
-     Finish it_wxvhn
+     it_cdcvq = {success:false, error: "User not found"}
+     Finish it_cdcvq
 enrolled = Call idp enrolled user.username
 When enrolled is false
      random_usecase = Call tk getRandomUseCase 
@@ -27,19 +26,19 @@ When typekey_result.status is "Enrollment"
      password = RRF "typekey/password.ftlh" 
      authenticated = Call idp authenticate user.username password.pwd
      When authenticated is true
-          Call tk notifyKeystrokes user.username typekey_result.track_id
-          it_jnjqh = {success:true, data: { userId: user.username}}
-          Finish it_jnjqh
-     it_ywtwp = {success:false, error: "Authentication failed"}
-     Finish it_ywtwp
+          Call tk notifyKeystrokes user.username typekey_result.track_id use_case
+          it_nevzx = {success:true, data: { userId: user.username}}
+          Finish it_nevzx
+     it_smroo = {success:false, error: "Authentication failed"}
+     Finish it_smroo
 When typekey_result.status is "Approved"
-     it_aisfp = {success:true, data: { userId: user.username}}
-     Finish it_aisfp
+     it_oglmu = {success:true, data: { userId: user.username}}
+     Finish it_oglmu
 password = RRF "typekey/password.ftlh" 
 authenticated = Call idp authenticate user.username password.pwd
 When authenticated is true
-     Call tk notifyKeystrokes user.username typekey_result.track_id
-     it_xwyyw = {success:true, data: { userId: user.username}}
-     Finish it_xwyyw
-it_szlqs = {success:false, error: "Password and typekey failed"}
-Finish it_szlqs
+     Call tk notifyKeystrokes user.username typekey_result.track_id use_case
+     it_ccomm = {success:true, data: { userId: user.username}}
+     Finish it_ccomm
+it_pleon = {success:false, error: "Password and typekey failed"}
+Finish it_pleon
