@@ -3,7 +3,7 @@
 <html lang="en">
 <head></head>
 <body>[#import "commons.ftlh" as com]
-   &lt;@com.main&gt;
+   [@com.main]
       <div class="border border-1 rounded p-5">
          <form id="login_form" method="POST">
             <div class="mb-3 row">
