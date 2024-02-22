@@ -1,5 +1,9 @@
-<#import "commons.ftlh" as com>
-   <@com.main>
+[#ftl output_format="HTML"]
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>[#import "commons.ftlh" as com]
+   &lt;@com.main&gt;
       <div class="border border-1 rounded p-5">
          <form id="login_form" method="POST">
             <div class="mb-3 row">
@@ -15,4 +19,7 @@
             </div>
          </form>
       </div>
-   </@com.main>
+   [/@com.main]</body>
+
+
+</html>
