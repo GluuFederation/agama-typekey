@@ -17,7 +17,7 @@ The project contains one flow: `org.gluu.agama.typekey`. When this is launched, 
 
 1. A running instance of Jans Auth Server
 1. A new column in `jansdb.jansPerson` to store the phrase metadata in
-1. A SCAN subscription. Please visit [https://gluu.org/agama-lab] and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 25 credits.
+1. A SCAN subscription. Please visit [Agama Lab](https://gluu.org/agama-lab) and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 25 credits.
 
 ### Add column to database
 
@@ -97,6 +97,11 @@ or [jans-tent](https://github.com/JanssenProject/jans/tree/main/demos/jans-tent)
 Launch an authorization flow with parameters `acr_values=agama&agama_flow=org.gluu.agama.typekey` with your chosen RP.
 
 Check out this video to see an example of **agama-typekey** in action:
+
+
+https://github.com/SafinWasi/agama-typekey/assets/6601566/cf8d11fa-3e22-4340-97a8-4f1753e0115b
+
+
 
 # Contributors
 
