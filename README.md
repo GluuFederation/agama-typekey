@@ -17,24 +17,25 @@ The project contains one flow: `org.gluu.agama.typekey`. When this is launched, 
 
 1. A running instance of Jans Auth Server
 1. A new column in `jansdb.jansPerson` to store the phrase metadata in
-1. A SCAN subscription. Please visit [Agama Lab](https://gluu.org/agama-lab) and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 25 credits.
+1. A SCAN subscription. Please visit [Agama Lab](https://gluu.org/agama-lab) and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 4 credits.
 
 ### Add column to database
 
-These instructions are for MySQL. Please follow the [documentation](https://docs.jans.io/v1.0.22/admin/reference/database/) for your persistence type.
+These instructions are for PostgreSQL. Please follow the [documentation](https://docs.jans.io/v1.0.22/admin/reference/database/) for your persistence type.
 
 1. Log into the server running Jans
-2. Log into MySQL with a user that has permission to operate on `jansdb`
-3. Add the column:
+2. Log into PostgreSQL with a user that has permission to operate on `jansdb`
+3. Connect to `jansdb`: `\c jansdb`
+4. Add the column:
 
   ```sql
-  ALTER TABLE jansdb.jansPerson ADD COLUMN typekeyData JSON NULL;
+  ALTER TABLE "jansPerson" ADD COLUMN typekeyData JSON;
   ```
 
-4. Restart MySQL and Auth Server to load the changes:
+4. Restart PostgreSQL and Auth Server to load the changes:
 
   ```
-  systemctl restart mysql jans-auth
+  systemctl restart postgresql jans-auth
   ````
 
 ### Dynamic Client Registration
@@ -42,7 +43,6 @@ These instructions are for MySQL. Please follow the [documentation](https://docs
 In order to call the Typekey API, you will need an OAuth client. Once you have a SCAN subscription on Agama Lab, navigate to `Market` > `SCAN` and create an SSA with the software claim `typekey`. The Typekey flow will register its own client via DCR with the SSA you provide in the configuration.
 
 - [Dynamic Client Registration specification](https://www.rfc-editor.org/rfc/rfc7591#section-3.1)
-- [Jans Tarp](https://github.com/JanssenProject/jans/tree/main/demos/jans-tarp)
 
 ### Deployment
 
