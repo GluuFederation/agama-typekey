@@ -11,6 +11,7 @@ import io.jans.as.model.crypto.signature.SignatureAlgorithm;
 import io.jans.as.model.crypto.AuthCryptoProvider;
 import io.jans.service.cdi.util.CdiUtil;
 import io.jans.util.StringHelper;
+import io.jans.service.CacheService;
 
 import java.net.URL;
 import java.net.URLEncoder;
@@ -70,6 +71,32 @@ public class Typekey {
         return "Bearer " + r.getContentAsJSONObject().getAsString("access_token");
     }
 
+    public void dynamicRegistration(String scanSSA) {
+        String asEndpoint = config.getAuthHost() + "/jans-auth/restv1/register";
+        HTTPRequest request = new HTTPRequest(HTTPRequest.Method.POST, new URL(asEndpoint));
+        request.setAccept(APPLICATION_JSON);
+        request.setContentType(APPLICATION_JSON);
+        request.setConnectTimeout(3000);
+        request.setReadTimeout(3000);
+        JSONArray redirect_array = new JSONArray();
+        redirect_array.put(config.getAuthHost());
+        JSONArray grant_array = new JSONArray();
+        grant_array.put("client_credentials");
+        Map<String, Object> map = new HashMap(Map.of(
+                "client_name", "typekey_client",
+                "redirect_uris", redirect_array,
+                "grant_types", grant_array,
+                "software_statement", scanSSA,
+                "lifetime", 86400));
+        String message = new JSONObject(map).toString();
+        request.setQuery(message);
+        HTTPResponse r = request.send();
+        r.ensureStatusCode(201);
+        logger.info("Client registration successful");
+        config.setClientId(r.getContentAsJSONObject().getAsString("client_id"));
+        config.setClientSecret(r.getContentAsJSONObject().getAsString("client_secret"));
+    }
+
     private String signUid(String uid, String alias) throws Exception {
         AuthCryptoProvider auth = new AuthCryptoProvider(config.getKeystoreName(), config.getKeystorePassword(), null);
         String signedUid = auth.sign(uid, alias, null, SignatureAlgorithm.RS256);
@@ -96,43 +123,21 @@ public class Typekey {
         request.setQuery(message);
         request.setAuthorization(token);
         HTTPResponse r = request.send();
-        Map<String, Object> responseObject;
 
-        if (r.getStatusCode() == 200) {
-            responseObject = r.getContentAsJSONObject();
-            return responseObject;
-        } else {
-            int statusCode = r.getStatusCode();
-            responseObject = new HashMap<String, Object>();
-            switch (statusCode) {
-                case 401:
-                    responseObject.put("status", "Unauthorized");
-                    break;
-                case 403:
-                    responseObject.put("status", "Forbidden");
-                    break;
-                case 422:
-                    responseObject.put("status", "Unprocessable entity");
-                    break;
-                case 400:
-                    responseObject.put("status", "Bad request");
-                    break;
-                default:
-                    responseObject.put("status", "Other error");
-                    logger.info("Other error. Status code: {}", statusCode);
-                    break;
-            }
-        }
+        r.ensureStatusCode(200);
+        Map<String, Object> responseObject = r.getContentAsJSONObject();
+
         return responseObject;
     }
 
-    public void notifyKeystrokes(String uid, int track_id) {
+    public void notifyKeystrokes(String uid, int track_id, String use_case) {
+        int useCase = Integer.parseInt(use_case);
         String token = buildServiceAuth();
         Map<String, Object> map = new HashMap(Map.of(
                 "uid", uid,
                 "track_id", track_id,
                 "org_id", config.getOrgId(),
-                "use_case", 1));
+                "use_case", useCase));
         String endpointUrl = config.getScanHost() + "/scan/typekey/notify";
         String message = new JSONObject(map).toString();
         logger.info(message);

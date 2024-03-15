@@ -17,32 +17,32 @@ The project contains one flow: `org.gluu.agama.typekey`. When this is launched, 
 
 1. A running instance of Jans Auth Server
 1. A new column in `jansdb.jansPerson` to store the phrase metadata in
-1. A SCAN subscription. Please visit [https://gluu.org/agama-lab] and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 25 credits.
+1. A SCAN subscription. Please visit [Agama Lab](https://gluu.org/agama-lab) and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 4 credits.
 
 ### Add column to database
 
-These instructions are for MySQL. Please follow the [documentation](https://docs.jans.io/v1.0.22/admin/reference/database/) for your persistence type.
+These instructions are for PostgreSQL. Please follow the [documentation](https://docs.jans.io/v1.0.22/admin/reference/database/) for your persistence type.
 
 1. Log into the server running Jans
-2. Log into MySQL with a user that has permission to operate on `jansdb`
-3. Add the column:
+2. Log into PostgreSQL with a user that has permission to operate on `jansdb`
+3. Connect to `jansdb`: `\c jansdb`
+4. Add the column:
 
   ```sql
-  ALTER TABLE jansdb.jansPerson ADD COLUMN typekeyData JSON NULL;
+  ALTER TABLE "jansPerson" ADD COLUMN typekeyData JSON;
   ```
 
-4. Restart MySQL and Auth Server to load the changes:
+4. Restart PostgreSQL and Auth Server to load the changes:
 
   ```
-  systemctl restart mysql jans-auth
+  systemctl restart postgresql jans-auth
   ````
 
 ### Dynamic Client Registration
 
-In order to call the Typekey API, you will need an OAuth client. Once you have a SCAN subscription on Agama Lab, navigate to `Market` > `SCAN` and create an SSA with the software claim `typekey` and an appropriate lifetime. Your client will expire after that time. Once this is done, note down the base64 encoded string, and send a dynamic client registration request to `https://account.gluu.org/jans-auth/restv1/register` to obtain a client ID and secret. You will need this to configure the Typekey flow. Jans Tarp has functionality to automate the registration process.
+In order to call the Typekey API, you will need an OAuth client. Once you have a SCAN subscription on Agama Lab, navigate to `Market` > `SCAN` and create an SSA with the software claim `typekey`. The Typekey flow will register its own client via DCR with the SSA you provide in the configuration.
 
 - [Dynamic Client Registration specification](https://www.rfc-editor.org/rfc/rfc7591#section-3.1)
-- [Jans Tarp](https://github.com/JanssenProject/jans/tree/main/demos/jans-tarp)
 
 ### Deployment
 
@@ -69,11 +69,14 @@ Follow the steps below:
     "org.gluu.agama.typekey": {
       "keystoreName": "",
       "keystorePassword": "", 
-      "orgId": "", 
-      "clientId": "",
-      "clientSecret": "",
+      "orgId": "",
+      "scan_ssa": "",
       "authHost": "https://account.gluu.org",
-      "scanHost": "https://cloud.gluu.org"
+      "scanHost": "https://cloud.gluu.org",
+      "phrases": {
+        "1": "itwasthebestoftimes",
+        "2": "itwastheworstoftimes"
+      }
     }
 }
 ```
@@ -82,8 +85,9 @@ Follow the steps below:
 
 - `keystoreName` and `keystorePassword` are optional, in case you want to include a signature when sending the Typekey data. Leave them as blank otherwise.
 - `orgId` is the organization ID that can be obtained by decoding the software statement JWT and looking at the `org_id` claim (You may use `https://jwt.io` to decode the SSA).
-- `clientId` and `clientSecret` are the client credentials obtained from Dynamic Client Registration
+- `scan_ssa` is the JWT string you obtain from Agama Lab
 - `authHost` and `scanHost` can be left as is
+- `phrases` is explained in the [Details](#details) section
 
 - We go back to the TUI and click on `Import Configuration` and select the modified configuration file with our parameters.
 - With this, our `agama project` is now configured and we can start testing.
@@ -96,7 +100,35 @@ or [jans-tent](https://github.com/JanssenProject/jans/tree/main/demos/jans-tent)
 
 Launch an authorization flow with parameters `acr_values=agama&agama_flow=org.gluu.agama.typekey` with your chosen RP.
 
-Check out this video to see an example of **agama-typekey** in action:
+## Details
+The first time a user starts the Typekey flow, Typekey will choose a random phrase from the `phrases` dict in the configuration and store it in persistence. Then, the Typekey API is called to provide the keystroke data recorded during the flow. The first 5 times, Typekey API will train on the data provided. This phase is called "Enrollment". On the 6th attempt onward, Typekey API will validate the provided keystroke data using the training data stored during enrollment. If the behavioral data is sufficiently different from the trained data, Typekey API will deny the request.
+In case Typekey API denies the request, Agama Typekey falls back to password authentication, and retrains the API on the provided data.
+
+## Examples
+
+Enrollment:
+
+
+https://github.com/SafinWasi/agama-typekey/assets/6601566/2256877b-3b49-48d8-b292-3d9da4a3a4c5
+
+
+
+Typekey API approval:
+
+
+
+https://github.com/SafinWasi/agama-typekey/assets/6601566/de5dcb19-9fbb-41f3-b897-606fc52fce85
+
+
+
+
+Typekey API denied, fallback to password:
+
+
+
+https://github.com/SafinWasi/agama-typekey/assets/6601566/b0288f5c-6a84-4ea0-b6a4-ac9052409189
+
+
 
 # Contributors
 
