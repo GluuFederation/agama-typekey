@@ -29,7 +29,7 @@ These instructions are for PostgreSQL. Please follow the [documentation](https:/
 4. Add the column:
 
   ```sql
-  ALTER TABLE "jansPerson" ADD COLUMN typekeyData JSON;
+  ALTER TABLE "jansPerson" ADD COLUMN "typekeyData" JSON;
   ```
 
 4. Restart PostgreSQL and Auth Server to load the changes:
