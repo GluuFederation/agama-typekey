@@ -6,6 +6,8 @@ import io.jans.as.common.service.common.UserService;
 import io.jans.orm.exception.operation.EntryNotFoundException;
 import io.jans.service.cdi.util.CdiUtil;
 import io.jans.as.server.service.AuthenticationService;
+import io.jans.service.UserAuthenticatorService;
+import io.jans.model.user.authenticator.UserAuthenticator;
 import io.jans.util.StringHelper;
 import io.jans.orm.model.base.CustomObjectAttribute;
 
@@ -70,15 +72,19 @@ public class IdentityProcessor implements IdentityProcessorInterface {
         User user = getUser(UID, username);
         logger.info("Adding Typekey claims to UID {}", username);
         UserService userService = CdiUtil.bean(UserService.class);
-        user.getCustomAttributes().add(new CustomObjectAttribute("typekeyData", typekeyAttributes));
+        UserAuthenticatorService userAuthenticatorService = CdiUtil.bean(UserAuthenticatorService.class);
+        UserAuthenticator authenticator = userAuthenticatorService.createUserAuthenticator("typekey", "typekey",
+                typekeyAttributes);
+        userAuthenticatorService.addUserAuthenticator(user, authenticator);
         userService.updateUser(user);
     }
 
     public boolean enrolled(String username) {
         User user = getUser(UID, username);
         UserService userService = CdiUtil.bean(UserService.class);
-        CustomObjectAttribute typekeyClaims = userService.getCustomAttribute(user, "typekeyData");
-        if (typekeyClaims != null) {
+        UserAuthenticatorService userAuthenticatorService = CdiUtil.bean(UserAuthenticatorService.class);
+        UserAuthenticator authenticator = userAuthenticatorService.getUserAuthenticatorById(user, "typekey");
+        if (authenticator != null) {
             logger.info("{} has enrolled", username);
             return true;
         }
@@ -88,9 +94,9 @@ public class IdentityProcessor implements IdentityProcessorInterface {
 
     public Map<String, Object> getTypekeyData(String username) {
         User user = getUser(UID, username);
-        UserService userService = CdiUtil.bean(UserService.class);
-        CustomObjectAttribute typekeyClaims = userService.getCustomAttribute(user, "typekeyData");
-        LinkedHashMap<String, Object> data = typekeyClaims.getValue();
+        UserAuthenticatorService userAuthenticatorService = CdiUtil.bean(UserAuthenticatorService.class);
+        UserAuthenticator authenticator = userAuthenticatorService.getUserAuthenticatorById(user, "typekey");
+        LinkedHashMap<String, Object> data = authenticator.getCustom();
         return data;
     }
 
