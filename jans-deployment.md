@@ -1,22 +1,3 @@
-# Add column to database
-
-These instructions are for PostgreSQL. Please follow the [documentation](https://docs.jans.io/v1.0.22/admin/reference/database/) for your persistence type.
-
-1. Log into the server running Jans
-2. Log into PostgreSQL with a user that has permission to operate on `jansdb`
-3. Connect to `jansdb`: `\c jansdb`
-4. Add the column:
-
-  ```sql
-  ALTER TABLE "jansPerson" ADD COLUMN typekeyData JSON;
-  ```
-
-5. Restart PostgreSQL and Auth Server to load the changes:
-
-  ```
-  systemctl restart postgresql jans-auth
-  ```
-
 # Deployment
 
 Download the latest [agama-typekey.gama](https://github.com/GluuFederation/agama-typekey/releases/latest/download/agama-typekey.gama) file and deploy it in Auth Sever.

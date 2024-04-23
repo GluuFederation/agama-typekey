@@ -37,8 +37,8 @@ In order to call the Typekey API, you will need an OAuth client. Once you have a
 
 ## Configuration
 
-| Flow                     | Property        | Value Description----------- |
-| ------------------------ |:---------------:| :--------------------------- |
+| Flow                     | Property        | Value Description            |
+| ------------------------ |:---------------:| :---------------------------:|
 | `org.gluu.agama.typekey` | keystoreName    | Keystore Name (optional)     |
 | `org.gluu.agama.typekey` | keystorePasword | Keystore Password (optional) |
 | `org.gluu.agama.typekey` | orgId           | `org_id` claim from SSA      |
