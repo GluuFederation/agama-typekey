@@ -2,53 +2,87 @@
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
+[![Stargazers][stars-shield]][stars-url]  
 [![Issues][issues-shield]][issues-url]
 [![Apache License][license-shield]][license-url]
 
-This project allows you to record behavioral keystroke data and use it as a second factor of authentication by leveraging the Typekey API. For more information you can check:
+## About Agama-typekey
+
+This repo is home to the Gluu Agama-typekey project. This project allows you to 
+record behavioral keystroke data and use it as a second factor of authentication 
+by leveraging the Typekey API.
+
 * [Details](./details.md)
 * [SCAN Documentation](.)
 * [Dynamic Client Registration specification](https://www.rfc-editor.org/rfc/rfc7591#section-3.1)
 
+
+
 ## Requirements
 
 * [agama-typekey](https://github.com/GluuFederation/agama-typekey)
-* A SCAN subscription. Please visit [Agama Lab](https://gluu.org/agama-lab) and sign up for a free SCAN subscription, which gives you 500 credits. Each successful Typekey API call costs 4 credits.
+* A SCAN subscription. Please visit [Agama Lab](https://gluu.org/agama-lab) 
+and sign up for a free SCAN subscription, which gives you 500 credits. 
+Each successful Typekey API call costs 4 credits.
+
 
 ### Software Statement Assertion
 
-In order to call the Typekey API, you will need an OAuth client. Once you have a SCAN subscription on Agama Lab, navigate to `Market` > `SCAN` and create an SSA with the software claim `typekey`. The Typekey flow will register its own client via DCR with the SSA you provide in the configuration.
+In order to call the Typekey API, you will need an OAuth client. Once you have 
+a SCAN subscription on Agama Lab, navigate to `Market` > `SCAN` and create an 
+SSA with the software claim `typekey`. The Typekey flow will register its own 
+client via DCR with the SSA you provide in the configuration.
 
-## Supported IDPs
+## Where To Deploy
 
-| IDP                             | Description                                    |
-| :------------------------------ |:-----------------------------------------------| 
-| Jans Auth Server                |[Deployment instructions](./jans-deployment.md) | 
-| Gluu Flex                       |[Deployment instructions](.)                    | 
-
-
-## Flows
-
-| Qualified Name           | Description       |
-|:------------------------ |:------------------| 
-| `org.gluu.agama.typekey` | Full Typekey flow |
+The project can be deployed to any IAM server that runs an implementation of 
+the [Agama Framework](https://docs.jans.io/head/agama/introduction/) like 
+[Janssen Server](https://jans.io) and [Gluu Flex](https://gluu.org/flex/).0
 
 
-## Configuration
+## How To Deploy
 
-| Flow                     | Property        | Value Description            |
-| ------------------------ |:---------------:| :---------------------------:|
-| `org.gluu.agama.typekey` | keystoreName    | Keystore Name (optional)     |
-| `org.gluu.agama.typekey` | keystorePasword | Keystore Password (optional) |
-| `org.gluu.agama.typekey` | orgId           | `org_id` claim from SSA      |
-| `org.gluu.agama.typekey` | scan_ssa        | SSA string from Agama Lab    |
-| `org.gluu.agama.typekey` | authHost        | Authorization Server         |
-| `org.gluu.agama.typekey` | scanHost        | SCAN server                  |
-| `org.gluu.agama.typekey` | phrases         | Phrases dictionary           |
+Different IAM servers may provide different methods and 
+user interfaces from where an Agama project can be deployed on that server. 
+The steps below show how the Agama-typekey project can be deployed on the 
+[Janssen Server](https://jans.io). 
+
+Deployment of an Agama project involves three steps
+
+- [Downloading the `.gama` package from project repository](#download-the-project)
+- [Adding the `.gama` package to the IAM server](#add-the-project-to-the-server)
+- [Configure the project](#configure-the-project)
 
 
-## Sample JSON
+### Download the Project
+
+> [!TIP]
+> Skip this step if you use the Janssen Server TUI tool to 
+> configure this project. The TUI tool enables the download and adding of this 
+> project directly from the tool, as part of the `community projects` listing. 
+
+The project is bundled as 
+[.gama package](https://docs.jans.io/head/agama/gama-format/). 
+Visit the `Assets` section of the 
+[Releases](https://github.com/GluuFederation/agama-typekey/releases) to download 
+the `.gama` package.
+
+### Add The Project To The Server
+
+  The Janssen Server provides multiple ways an Agama project can be 
+  deployed and configured. Either use the command-line tool, REST API, or a 
+  TUI (text-based UI). Refer to 
+  [Agama project configuration page](https://docs.jans.io/head/admin/config-guide/auth-server-config/agama-project-configuration/) in the Janssen Server documentation for more 
+  details.
+
+### Configure The Project
+
+Agama project accepts configuration parameters in the JSON format. Every Agama 
+project comes with a basic sample configuration file for reference.
+
+Below is a typical configuration of the Agama-typekey project. As show, it contains
+configuration parameters for the [flows contained in it](#flows-in-the-project):
+
 ```json
 {
     "org.gluu.agama.typekey": {
@@ -65,8 +99,61 @@ In order to call the Typekey API, you will need an OAuth client. Once you have a
     }
 }
 ```
+Check the flow detail section for details about configuration parameters.
 
-### Configuration details
+
+### Test The Flow
+
+Use any Relying party implementation (like [jans-tarp](https://github.com/JanssenProject/jans/tree/main/demos/jans-tarp)) 
+to send authentication request that triggers the flow.
+
+From the incoming authentication request, the Janssen Server reads the `ACR` 
+parameter value to identify which authentication method should be used. 
+To invoke the `org.gluu.agama.typekey` flow contained in the  Agama-typekey project, 
+specify the ACR value as `agama_<qualified-name-of-the-top-level-flow>`, 
+i.e  `agama_org.gluu.agama.typekey`.
+
+
+## Customize and Make It Your Own
+
+Fork this repo to start customizing the Agama-PW project. It is possible to 
+customize the user interface provided by the flow to suit your organization's 
+branding 
+guidelines. Or customize the overall flow behavior. Follow the best 
+practices and steps listed 
+[here](https://docs.jans.io/head/admin/developer/agama/agama-best-practices/#project-reuse-and-customizations) 
+to achieve these customizations in the best possible way.
+This  project can be re-used in other Agama projects to create more complex 
+authentication journeys. To re-use, trigger the  
+[org.gluu.agama.typekey](#orggluuagamatypekey) flow from other Agama projects.
+
+To make it easier to visualize and customize the Agama Project, use 
+[Agama Lab](https://cloud.gluu.org/agama-lab/login).
+
+
+## Flows In The Project
+
+List of the flows: 
+
+- [org.gluu.agama.typekey](#orggluuagamatypekey)
+
+
+### org.gluu.agama.typekey
+
+The first time a user starts the Typekey flow, Typekey will choose a random 
+phrase from the `phrases` dict in the configuration and store it in persistence. 
+Then, the Typekey API is called to provide the keystroke data recorded during 
+the flow. The first 5 times, Typekey API will train on the data provided. 
+This phase is called "Enrollment". On the 6th attempt onward, Typekey API will 
+validate the provided keystroke data using the training data stored during 
+enrollment. If the behavioral data is sufficiently different from the trained 
+data, Typekey API will deny the request.
+
+In case Typekey API denies the request, Agama Typekey falls back to password 
+authentication, and retrains the API on the provided data.
+
+
+#### Parameter Details
 
 - `keystoreName` and `keystorePassword` are optional, in case you want to include a signature when sending the Typekey data. Leave them as blank otherwise.
 - `orgId` is the organization ID that can be obtained by decoding the software statement JWT and looking at the `org_id` claim (You may use `https://jwt.io` to decode the SSA).
@@ -74,11 +161,6 @@ In order to call the Typekey API, you will need an OAuth client. Once you have a
 - `authHost` and `scanHost` can be left as is
 - `phrases` is a dictionary of strings from which the phrase used for behavioral metrics is selected. The dictionary pairs must be in format `string:string` where keys are unique numbers in string format and values are unique phrases. 
 
-## Details
-
-The first time a user starts the Typekey flow, Typekey will choose a random phrase from the `phrases` dict in the configuration and store it in persistence. Then, the Typekey API is called to provide the keystroke data recorded during the flow. The first 5 times, Typekey API will train on the data provided. This phase is called "Enrollment". On the 6th attempt onward, Typekey API will validate the provided keystroke data using the training data stored during enrollment. If the behavioral data is sufficiently different from the trained data, Typekey API will deny the request.
-
-In case Typekey API denies the request, Agama Typekey falls back to password authentication, and retrains the API on the provided data.
 
 ## Demo 
 
@@ -105,24 +187,6 @@ Typekey API denied, fallback to password:
 https://github.com/SafinWasi/agama-typekey/assets/6601566/b0288f5c-6a84-4ea0-b6a4-ac9052409189
 
 
-
-# Contributors
-
-<table>
-<tr>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://github.com/SafinWasi>
-            <img src=https://avatars.githubusercontent.com/u/6601566?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=SafinWasi/>
-            <br />
-            <sub style="font-size:14px"><b>SafinWasi</b></sub>
-        </a>
-    </td>
-</tr>
-</table>
-
-# License
-
-This project is licensed under the [Apache 2.0](./LICENSE)
 
 <!-- This are stats url reference for this repository -->
 
