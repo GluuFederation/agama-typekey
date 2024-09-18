@@ -8,8 +8,8 @@
 
 ## About Agama-typekey
 
-This repo is home to the Gluu Agama-typekey project. This project allows you to 
-record behavioural keystroke data and use it as a second factor of authentication 
+This repo is home to the Gluu Agama-typekey project. This project allows you to
+Record behavioral keystroke data and use it as a second factor of authentication
 by leveraging the Typekey API.
 
 
@@ -107,7 +107,7 @@ From the incoming authentication request, the Janssen Server reads the `ACR`
 parameter value to identify which authentication method should be used. 
 To invoke the `org.gluu.agama.typekey` flow contained in the Agama-typekey project, 
 specify the ACR value as `agama_<qualified-name-of-the-top-level-flow>`, 
-i.e  `agama_org.gluu.agama.typekey`.
+i.e `agama_org.gluu.agama.typekey`.
 
 
 ## Customize and Make It Your Own
@@ -145,17 +145,22 @@ validate the provided keystroke data using the training data stored during
 enrollment. If the behavioral data is sufficiently different from the trained 
 data, Typekey API will deny the request.
 
-In case the Typekey API denies the request, Agama Typekey falls back to password 
-authentication, and retrains the API on the provided data.
+In case the Typekey API denies the request, Agama Typekey falls back to password authentication, and retrains the API on the provided data.
 
 
 #### Parameter Details
 
-- `keystoreName` and `keystorePassword` are optional, in case you want to include a signature when sending the Typekey data. Leave them as blank otherwise.
-- `orgId` is the organization ID that can be obtained by decoding the software statement JWT and looking at the `org_id` claim (you may use `https://jwt.io` to decode the SSA).
-- `scan_ssa` is the JWT string you obtain from Agama Lab.
-- `authHost` and `scanHost` can be left as is.
-- `phrases` is a dictionary of strings from which the phrase used for behavioral metrics is selected. The dictionary pairs must be in format `string:string` where keys are unique numbers in string format and values are unique phrases. 
+
+| Name | Description | Notes |
+| ----------------- | --------------------------------------------------------------------- | --------------------------------------- |
+| `keystoreName` | Optional name for the keystore if you want to include a signature when sending Typekey data. | Leave blank if not needed.|
+| `keystorePassword` | Optional password for the keystore for signature inclusion. | Leave blank if not needed.|
+| `orgId` | Organization ID obtained by decoding the software statement JWT.| Look for the org_id claim; use https://jwt.io to decode.|
+| `scan_ssa` | JWT string obtained from Agama Lab.| |
+| `authHost` | Host URL for authentication. | Can be left as is.|
+| `scanHost` | Host URL for scanning. | Can be left as is.|
+| `phrases` | Dictionary of strings for selecting phrases used in behavioral metrics. | Use format string:string with unique keys and values.|
+
 
 
 ## Demo
@@ -168,16 +173,16 @@ series for a quick demo on this flow.
 
 *Note:*
 While the video shows how the flow works overall, it may be dated. Do check the
-[Test The Flow](#test-the-flow) section to understand the current
+[Test the Flow](#test-the-flow) section to understand the current
 method of passing the ACR parameter when invoking the flow.
 
-Enrollment:
+### Enrollment
 
 https://github.com/SafinWasi/agama-typekey/assets/6601566/2256877b-3b49-48d8-b292-3d9da4a3a4c5
 
 
 
-Typekey API approval:
+### Typekey API approval
 
 
 
@@ -186,7 +191,7 @@ https://github.com/SafinWasi/agama-typekey/assets/6601566/de5dcb19-9fbb-41f3-b89
 
 
 
-Typekey API denied, fallback to password:
+### Typekey API denied, fallback to password
 
 
 https://github.com/SafinWasi/agama-typekey/assets/6601566/b0288f5c-6a84-4ea0-b6a4-ac9052409189
