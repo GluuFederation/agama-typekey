@@ -1,49 +1,45 @@
 Flow org.gluu.agama.typekey
-    Basepath ""
-    Configs conf
+     Basepath ""
+     Configs conf
 idp = Call org.gluu.agama.typekey.IdentityProcessor#new 
 tk = Call org.gluu.agama.typekey.Typekey#new conf
 user = RRF "typekey/username.ftlh" 
 userData = Call idp accountFromUsername user.username
 When userData.empty is true
-    it_vsrve = {success:false, error: "User not found"}
-    Finish it_vsrve
-Call tk dynamicRegistration conf.scan_ssa 
+     it_neono = {success:false, error: "User not found"}
+     Finish it_neono
 enrolled = Call idp enrolled user.username
 When enrolled is false
-    random_usecase = Call tk getRandomUseCase 
-    phrase_map = Call tk generateTypekeyData random_usecase
-    dummy = Call idp enroll user.username phrase_map
-    phrase = phrase_map.phrase
-    use_case = random_usecase
+     random_usecase = Call tk getRandomUseCase 
+     phrase_map = Call tk generateTypekeyData random_usecase
+     dummy = Call idp enroll user.username phrase_map
+     phrase = phrase_map.phrase
+     use_case = random_usecase
 When enrolled is true
-    typekey_data = Call idp getTypekeyData user.username
-    phrase = typekey_data.phrase
-    use_case = typekey_data.useCase
+     typekey_data = Call idp getTypekeyData user.username
+     phrase = typekey_data.phrase
+     use_case = typekey_data.useCase
 phraseDict = {phrase:phrase}
 phraseData = RRF "typekey/phrase.ftlh" phraseDict
 typekey_result = Call tk validateKeystrokes user.username phraseData.phrase_data use_case
 When typekey_result.status is "Enrollment"
-    Log "Agama Typekey: Enrollment in progress" 
-    password = RRF "typekey/password.ftlh" 
-    authenticated = Call idp authenticate user.username password.pwd
-    When authenticated is true
-        Call tk notifyKeystrokes user.username typekey_result.track_id use_case
-        it_spikk = {success:true, data: { userId: user.username}}
-        Finish it_spikk
-    it_ttqbc = {success:false, error: "Authentication failed"}
-    Finish it_ttqbc
+     password = RRF "typekey/password.ftlh" 
+     authenticated = Call idp authenticate user.username password.pwd
+     When authenticated is true
+          Call tk notifyKeystrokes user.username typekey_result.track_id use_case
+          it_uhzgr = {success:true, data: { userId: user.username}}
+          Finish it_uhzgr
+     it_tbvaw = {success:false, error: "Authentication failed"}
+     Finish it_tbvaw
 When typekey_result.status is "Approved"
-    Log "Agama Typekey: Approved"
-    it_zirls = {success:true, data: { userId: user.username}}
-    Finish it_zirls
+     it_yhuoj = {success:true, data: { userId: user.username}}
+     Finish it_yhuoj
 password = RRF "typekey/password.ftlh" 
 authenticated = Call idp authenticate user.username password.pwd
 When authenticated is true
-    When typekey_result.status is "Denied"
-        Log "Denied, fell back to password"
-        Call tk notifyKeystrokes user.username typekey_result.track_id use_case
-    it_becry = {success:true, data: { userId: user.username }}
-    Finish it_becry
-it_ryekg = {success:false, error: "Typekey and password failed"}
-Finish it_ryekg
+     When typekey_result.status is "Denied"
+          Call tk notifyKeystrokes user.username typekey_result.track_id use_case
+     it_xzzaw = {success:true, data: { userId: user.username }}
+     Finish it_xzzaw
+it_gyhkb = {success:false, error: "Typekey and password failed"}
+Finish it_gyhkb
