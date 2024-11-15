@@ -17,7 +17,8 @@
             "keystoreName": "",
             "keystorePassword": "",
             "orgId": "",
-            "scan_ssa": "",
+            "clientId": "",
+            "clientSecret": "",
             "authHost": "https://account.gluu.org",
             "scanHost": "https://cloud.gluu.org",
             "phrases": {
