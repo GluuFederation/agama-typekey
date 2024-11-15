@@ -6,8 +6,9 @@ tk = Call org.gluu.agama.typekey.Typekey#new conf
 user = RRF "typekey/username.ftlh" 
 userData = Call idp accountFromUsername user.username
 When userData.empty is true
-     it_neono = {success:false, error: "User not found"}
-     Finish it_neono
+     it_fmfjr = {success:false, error: "User not found"}
+     Finish it_fmfjr
+Call tk dynamicRegistration conf.scan_ssa
 enrolled = Call idp enrolled user.username
 When enrolled is false
      random_usecase = Call tk getRandomUseCase 
@@ -27,19 +28,19 @@ When typekey_result.status is "Enrollment"
      authenticated = Call idp authenticate user.username password.pwd
      When authenticated is true
           Call tk notifyKeystrokes user.username typekey_result.track_id use_case
-          it_uhzgr = {success:true, data: { userId: user.username}}
-          Finish it_uhzgr
-     it_tbvaw = {success:false, error: "Authentication failed"}
-     Finish it_tbvaw
+          it_ecvtj = {success:true, data: { userId: user.username}}
+          Finish it_ecvtj
+     it_vldns = {success:false, error: "Authentication failed"}
+     Finish it_vldns
 When typekey_result.status is "Approved"
-     it_yhuoj = {success:true, data: { userId: user.username}}
-     Finish it_yhuoj
+     it_pqssm = {success:true, data: { userId: user.username}}
+     Finish it_pqssm
 password = RRF "typekey/password.ftlh" 
 authenticated = Call idp authenticate user.username password.pwd
 When authenticated is true
      When typekey_result.status is "Denied"
           Call tk notifyKeystrokes user.username typekey_result.track_id use_case
-     it_xzzaw = {success:true, data: { userId: user.username }}
-     Finish it_xzzaw
-it_gyhkb = {success:false, error: "Typekey and password failed"}
-Finish it_gyhkb
+     it_jjaeg = {success:true, data: { userId: user.username }}
+     Finish it_jjaeg
+it_sgeev = {success:false, error: "Typekey and password failed"}
+Finish it_sgeev
